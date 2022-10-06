@@ -23,6 +23,7 @@ root.title("BMI Calculator")
 root.geometry("470x580+300+200")
 root.resizable(False, False)
 root.configure(bg="white")
+root.focus_force()
 
 
 # BMI calculation
@@ -89,9 +90,9 @@ def slider_changed(event):
     Height.set(get_current_value())
 
     size = int(float(get_current_value()))
-    img = ImageTk.PhotoImage(Image.open("Guy.png"))
+    img = Image.open(ASSETS_PATH / "Guy.png")
     resized_image = img.resize((50, 10 + size))
-    photo2 = ImageTk.PhotoImage(Image.open(resized_image))
+    photo2 = ImageTk.PhotoImage(resized_image)
     secondimage.config(image=photo2)
     secondimage.place(x=70, y=550 - size)
     secondimage.image = photo2
