@@ -1,4 +1,3 @@
-from tkinter import *
 import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
@@ -15,10 +14,11 @@ messagebox.showwarning(
 messagebox.showwarning(
     title="Welcome, User!",
     message="If you want to calculate your BMI, you have to find out your "
-    + "weight and height first. Once you know these values,click OK and proceed",
+    + "weight and height first. Once you know these values, "
+    + "click OK and proceed",
 )
 
-root = Tk()
+root = tk.Tk()
 root.title("BMI Calculator")
 root.geometry("470x580+300+200")
 root.resizable(False, False)
@@ -47,14 +47,17 @@ def BMI():
     elif bmi > 25 and bmi <= 30:
         label2.config(text="Overweight!")
         label3.config(
-            text="It indicates that you are slightly \n Overweight! \n A doctor may"
-            + " advise you to lose some \n weight to be Healthy and risk-free from "
-            + "\n further Health complications."
+            text="It indicates that you are slightly \n Overweight! \n A"
+            + "doctor may advise you to lose some \n weight to be Healthy and "
+            + "risk-free from \n further Health complications."
         )
 
     else:
         label2.config(text="Obese!")
-        label3.config(text="Your health may be at risk,\n if you do not lose weight!")
+        label3.config(
+            text="Your health may be at risk,\n if you do not " +
+            "lose weight!"
+        )
 
 
 # ICON
@@ -63,22 +66,22 @@ root.iconphoto(False, image_icon)
 
 # TOP
 top = ImageTk.PhotoImage(Image.open(ASSETS_PATH / "BMIcalc.png"))
-top_image = Label(root, image=top, background="#f0f1f5")
+top_image = tk.Label(root, image=top, background="#f0f1f5")
 top_image.place(x=-38, y=-10)
 
-# BOTTOM BOX
-Label(root, width=72, height=18, bg="orange").pack(side=BOTTOM)
+# bottom BOX
+tk.Label(root, width=72, height=18, bg="orange").pack(side="bottom")
 
 # TWO BOXES
 box = ImageTk.PhotoImage(Image.open(ASSETS_PATH / "box.png"))
-Label(root, image=box).place(x=20, y=100)
-Label(root, image=box).place(x=240, y=100)
+tk.Label(root, image=box).place(x=20, y=100)
+tk.Label(root, image=box).place(x=240, y=100)
 
 # SCALE
 scale = ImageTk.PhotoImage(Image.open(ASSETS_PATH / "scale.png"))
-Label(root, image=scale, bg="orange").place(x=-10, y=310)
+tk.Label(root, image=scale, bg="orange").place(x=-10, y=310)
 
-################SLIDER1#####################
+# ###############SLIDER1#####################
 current_value = tk.DoubleVar()
 
 
@@ -143,9 +146,9 @@ slider2.place(x=300, y=250)
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 # ENTRY BOX
-Height = StringVar()
-Weight = StringVar()
-height = Entry(
+Height = tk.StringVar()
+Weight = tk.StringVar()
+height = tk.Entry(
     root,
     textvariable=Height,
     width=5,
@@ -153,12 +156,12 @@ height = Entry(
     bg="#fff",
     fg="#000",
     bd=0,
-    justify=CENTER,
+    justify="center",
 )  # 'justify' TO align text in center
 height.place(x=35, y=160)
 Height.set(get_current_value())
 
-weight = Entry(
+weight = tk.Entry(
     root,
     textvariable=Weight,
     width=5,
@@ -166,17 +169,17 @@ weight = Entry(
     bg="#fff",
     fg="#000",
     bd=0,
-    justify=CENTER,
+    justify="center",
 )  # 'justify' TO align text in center
 weight.place(x=255, y=160)
 Weight.set(get_current_value2())
 
 # MAN IMAGE
-secondimage = Label(root, bg="orange")
+secondimage = tk.Label(root, bg="orange")
 secondimage.place(x=70, y=530)
 
 # CALLING BMI FUNCTION [Line 13] button for bmi calculation
-Button(
+tk.Button(
     root,
     text="View Report",
     width=15,
@@ -187,19 +190,21 @@ Button(
     command=BMI,
 ).place(x=320, y=340)
 
-label1 = Label(root, font="arial 60 bold", bg="orange", fg="#fff")
+label1 = tk.Label(root, font="arial 60 bold", bg="orange", fg="#fff")
 label1.place(x=125, y=305)
 
-label2 = Label(root, font="arial 20 bold", bg="orange", fg="#3b3a3a")
+label2 = tk.Label(root, font="arial 20 bold", bg="orange", fg="#3b3a3a")
 label2.place(x=280, y=430)
 
-label3 = Label(root, font="arial 10", bg="orange")
+label3 = tk.Label(root, font="arial 10", bg="orange")
 label3.place(x=200, y=500)
 
-label4 = Label(root, text="HEIGHT(cm)", font="BahnschriftBold 15", bg="white")
+label4 = tk.Label(root, text="HEIGHT(cm)", font="BahnschriftBold 15",
+                  bg="white")
 label4.place(x=75, y=115)
 
-label5 = Label(root, text="WEIGHT(kg)", font="BahnschriftBold 15", bg="white")
+label5 = tk.Label(root, text="WEIGHT(kg)", font="BahnschriftBold 15",
+                  bg="white")
 label5.place(x=285, y=115)
 
 root.mainloop()
