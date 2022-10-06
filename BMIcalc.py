@@ -3,7 +3,9 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 from tkinter import messagebox
+from pathlib import Path
 
+ASSETS_PATH = Path(__file__).resolve().parent / "assets"
 
 messagebox.showwarning(
     title="Welcome, User!",
@@ -55,11 +57,11 @@ def BMI():
 
 
 # ICON
-image_icon = ImageTk.PhotoImage(Image.open("BMIcalcL.png"))
+image_icon = ImageTk.PhotoImage(Image.open(ASSETS_PATH / "BMIcalcL.png"))
 root.iconphoto(False, image_icon)
 
 # TOP
-top = ImageTk.PhotoImage(Image.open("BMIcalc.png"))
+top = ImageTk.PhotoImage(Image.open(ASSETS_PATH / "BMIcalc.png"))
 top_image = Label(root, image=top, background="#f0f1f5")
 top_image.place(x=-38, y=-10)
 
@@ -67,12 +69,12 @@ top_image.place(x=-38, y=-10)
 Label(root, width=72, height=18, bg="orange").pack(side=BOTTOM)
 
 # TWO BOXES
-box = ImageTk.PhotoImage(Image.open("box.png"))
+box = ImageTk.PhotoImage(Image.open(ASSETS_PATH / "box.png"))
 Label(root, image=box).place(x=20, y=100)
 Label(root, image=box).place(x=240, y=100)
 
 # SCALE
-scale = ImageTk.PhotoImage(Image.open("scale.png"))
+scale = ImageTk.PhotoImage(Image.open(ASSETS_PATH / "scale.png"))
 Label(root, image=scale, bg="orange").place(x=-10, y=310)
 
 ################SLIDER1#####################
