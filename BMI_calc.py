@@ -178,7 +178,7 @@ Weight.set(get_current_value2())
 secondimage = tk.Label(root, bg="orange")
 secondimage.place(x=70, y=530)
 
-# CALLING BMI FUNCTION [Line 13] button for bmi calculation
+# CALLING BMI FUNCTION [Line 30] button for bmi calculation
 tk.Button(
     root,
     text="View Report",
