@@ -216,7 +216,18 @@ tk.Button(
     bg="green",
     fg="white",
     command=BMI,
-).place(x=320, y=340)
+).place(x=320, y=360)
+
+tk.Button(
+    root,
+    text="Update record",
+    width=15,
+    height=2,
+    font="CalibriBold 10",
+    bg="green",
+    fg="white",
+    command=add_data,
+).place(x=320, y=320)
 
 label1 = tk.Label(root, font="arial 60 bold", bg="orange", fg="#fff")
 label1.place(x=125, y=305)
