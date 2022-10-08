@@ -3,6 +3,7 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 from tkinter import messagebox
 from pathlib import Path
+import mysql.connector as pymysql
 
 ASSETS_PATH = Path(__file__).resolve().parent / "assets"
 
@@ -32,9 +33,14 @@ def BMI():
     w = float(Weight.get())
 
     # Convert HEIGHT into METER
-    m = h / 100
-    bmi = round(float(w / m**2), 1)
-    label1.config(text=bmi)
+    try:
+        m = h / 100
+        bmi = round(float(w / m**2), 1)
+        label1.config(text=bmi)
+    except ZeroDivisionError:
+        messagebox.showerror(
+            title="BMI Calculator", message="Height/Weight cannot be 0!"
+        )
 
     if bmi <= 18.5:
         label2.config(text="Underweight!")
@@ -55,8 +61,7 @@ def BMI():
     else:
         label2.config(text="Obese!")
         label3.config(
-            text="Your health may be at risk,\n if you do not " +
-            "lose weight!"
+            text="Your health may be at risk,\n if you do not " + "lose weight!"
         )
 
 
@@ -129,6 +134,34 @@ def slider_changed2(event):
     Weight.set(get_current_value2())
 
 
+def add_data():
+    if float(Height.get()) == 0.00 or float(Weight.get()) == 0.00:
+        messagebox.showerror(
+            title="BMI Calculator",
+            message="Weight/Height cannot be 0!",
+        )
+    else:
+        sqlCon = pymysql.connect(
+            host="localhost",
+            user="root",
+            password=enter_password,
+            database=db_name,
+        )
+        cur = sqlCon.cursor()
+        cur.execute(
+            "insert into bmi values(%s, %s)",
+            (
+                Height.get(),
+                Weight.get(),
+            ),
+        )
+        sqlCon.commit()
+        messagebox.showinfo(
+            title="BMI Calculator",
+            message="Data inserted successfully.",
+        )
+
+
 # COMMAND TO CHANGE BACKGROUND COLOR OF SCALE
 style2 = ttk.Style()
 style2.configure("TScale", background="white")
@@ -188,7 +221,18 @@ tk.Button(
     bg="green",
     fg="white",
     command=BMI,
-).place(x=320, y=340)
+).place(x=320, y=360)
+
+tk.Button(
+    root,
+    text="Update record",
+    width=15,
+    height=2,
+    font="CalibriBold 10",
+    bg="green",
+    fg="white",
+    command=add_data,
+).place(x=320, y=320)
 
 label1 = tk.Label(root, font="arial 60 bold", bg="orange", fg="#fff")
 label1.place(x=125, y=305)
@@ -199,12 +243,10 @@ label2.place(x=280, y=430)
 label3 = tk.Label(root, font="arial 10", bg="orange")
 label3.place(x=200, y=500)
 
-label4 = tk.Label(root, text="HEIGHT(cm)", font="BahnschriftBold 15",
-                  bg="white")
+label4 = tk.Label(root, text="HEIGHT(cm)", font="BahnschriftBold 15", bg="white")
 label4.place(x=75, y=115)
 
-label5 = tk.Label(root, text="WEIGHT(kg)", font="BahnschriftBold 15",
-                  bg="white")
+label5 = tk.Label(root, text="WEIGHT(kg)", font="BahnschriftBold 15", bg="white")
 label5.place(x=285, y=115)
 
 root.mainloop()
