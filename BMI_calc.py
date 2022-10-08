@@ -38,7 +38,9 @@ def BMI():
         bmi = round(float(w / m**2), 1)
         label1.config(text=bmi)
     except ZeroDivisionError:
-        messagebox.showerror(title="BMI Calculator", message="Height/Weight cannot be 0!")
+        messagebox.showerror(
+            title="BMI Calculator", message="Height/Weight cannot be 0!"
+        )
 
     if bmi <= 18.5:
         label2.config(text="Underweight!")
